@@ -1,0 +1,80 @@
+:root {
+  --bodyBackground: #f9f9f9;
+  --elementBackground: #ffffff;
+  --cian: #0ad4fa;
+  --greyBackground: #ededed;
+  /* --gradient: radial-gradient(50% 130%, #0ad4fa 51%, #25bbf1 100%); */
+  --darkFont: #616161;
+  --lightFont: #a3a3a3;
+}
+body {
+  font-family: SourceSansPro-Regular;
+  background-color: var(--bodyBackground);
+}
+.navbar {
+  background-color: var(--elementBackground);
+  font-size: 24px;
+  color: #616161;
+  letter-spacing: -0.15px;
+  line-height: 48px;
+  text-align: left;
+}
+#userName {
+  margin-right: 18px;
+}
+.customButton {
+  height: 48px;
+  background: #ededed !important;
+  border-radius: 100px !important;
+}
+.buttonText {
+  font-size: 24px;
+  color: #616161;
+  letter-spacing: -0.15px;
+  text-align: left;
+}
+.img {
+  width: 80%;
+  z-index: 0;
+}
+
+.text-over-img {
+  z-index: 1;
+  font-size: 64px;
+  color: var(--elementBackground);
+  margin-top: -148px;
+  margin-left: 132px;
+}
+/* .App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+} */
