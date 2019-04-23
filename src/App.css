@@ -6,12 +6,16 @@
   /* --gradient: radial-gradient(50% 130%, #0ad4fa 51%, #25bbf1 100%); */
   --darkFont: #616161;
   --lightFont: #a3a3a3;
+  --lightBars: #d9d9d9;
+}
+#root {
+  background: var(--bodyBackground);
 }
 body {
   font-family: SourceSansPro-Regular;
   background-color: var(--bodyBackground);
 }
-.navbar {
+.navbar, .filters{
   background-color: var(--elementBackground);
   font-size: 24px;
   color: #616161;
@@ -25,7 +29,7 @@ body {
 .customButton {
   height: 48px;
   background: #ededed !important;
-  border-radius: 100px !important;
+  border-radius: 20px !important;
 }
 .buttonText {
   font-size: 24px;
@@ -44,7 +48,50 @@ body {
   color: var(--elementBackground);
   margin-top: -148px;
   margin-left: 132px;
+  margin-bottom: 148px; 
 }
+.filters {
+  background: var(--bodyBackground);
+  display: flex;
+  border-bottom-color: var(--lightBars);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding-bottom: 24px;
+}
+.pagingText {
+  padding-right: 25px;
+  border-right:var(--lightBars);
+  border-right-style: solid;
+  border-right-width: 1px;  
+  height: 49px;
+}
+#filtersButtons {
+  padding-left: 25px;
+  height: 49px;
+  color: var(--lightFont);
+}
+
+#bsOverride .nav-link {
+  background-color: var(--greyBackground);
+  height: 48px;
+  padding: 0px 16px;
+  margin-left: 24px;
+  border-radius: 20px;
+}
+#bsOverride .active {
+  background-color: var(--cian);
+}
+#productsSection {
+  margin: 0px 130px;
+}
+#bsOverride ul {
+  list-style-type: none;
+  padding: 0px;
+}
+#bsOverride .card {
+  margin-top: 24px
+}
+
 /* .App {
   text-align: center;
 }

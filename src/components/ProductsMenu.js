@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
+import arrowRight from "../icons/arrow-right.svg";
 
 export default class ProductsMenu extends Component {
   render() {
     return (
-      <div>
-        
+      <div className="filters align-items-center">
+        <span className="pagingText">16 of 32 products</span>
+        <ul className="nav nav-pills" id="filtersButtons">
+          <li className="nav-item ">Sort by:</li>
+          <li className="nav-item "><span className="nav-link active ">Most recent</span></li>
+          <li className="nav-item "><span className="nav-link">Lowest price</span></li>
+          <li className="nav-item "><span className="nav-link">Highest price</span></li>
+        </ul>
+        <div className="ml-auto">
+          <img src={arrowRight} width="48" height="48" alt="" />
+        </div>
       </div>
     )
   }

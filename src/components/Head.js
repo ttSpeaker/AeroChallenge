@@ -4,7 +4,7 @@ export default class Head extends Component {
   render() {
     return (
       <div className="">
-        <img src={Banner} class="img-fluid" alt="Section Banner" />
+        <img src={Banner} className="img-fluid" alt="Section Banner" />
         <h2 className="text-over-img">Electronics</h2>
       </div>
     );

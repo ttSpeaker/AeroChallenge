@@ -5,25 +5,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar";
 import Head from "./components/Head";
 import Products from "./components/Products";
+import {ContextProvider} from "./context.js";
+
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      userName: "John Doe", // call for username()
-      userPoints: 6000
-    };
-  }
+
+
+
   render() {
     return (
-      <React.Fragment>
-        <Navbar name={this.state.userName} points={this.state.userPoints} />
-        <Head/>
-        <Switch>
-          <Route exact path="/" Component={Products} />
-          {/* <Route Component={Default}></Route> */}
-        </Switch>
-      </React.Fragment>
+      <ContextProvider>
+        <React.Fragment>
+          <Navbar/>
+          <Head/>
+
+          {/* <Switch>
+            <Route path="/" Component={Products} />
+          </Switch> */}
+          <Products/>
+        </React.Fragment>
+      </ContextProvider>
     );
   }
 }
