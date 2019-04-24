@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Modal from "./components/pointsModal.js"
 
 const Context = React.createContext();
 
@@ -14,8 +13,15 @@ class ContextProvider extends Component {
          userPoints: null,
          isProductsLoaded: false,
          items:[],
-         orderBy: "_id"
+         orderBy: "_id",
+         itemsPage: 16,
+         pageNum: 0
        };
+     }
+     changePage = (change) => {
+        this.setState({
+             pageNum: this.state.pageNum+change
+            })
      }
      updateOrder = (newOrder) => {
         if (newOrder == "lowCost"){
@@ -44,7 +50,6 @@ class ContextProvider extends Component {
      }
 
     reloadPoints(event) {
-        console.log("click reload pints")
     }
 
     componentDidMount(){
@@ -114,7 +119,8 @@ class ContextProvider extends Component {
         ...this.state, 
         reloadPoints: this.reloadPoints,
         updateContextItems: this.updateContextItems,
-        updateOrder: this.updateOrder
+        updateOrder: this.updateOrder,
+        changePage: this.changePage
         }}> 
             {this.props.children}
         </Context.Provider>  

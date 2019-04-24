@@ -10,7 +10,7 @@ export default class Navbar extends Component {
   render() {
     return (
       <nav className="navbar navbar-expand-lg ">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <img src={logo} width="30" height="30" alt="" />
           </a>
           <ul className="navbar-nav align-items-center ml-auto">
@@ -29,7 +29,7 @@ export default class Navbar extends Component {
                 <ContextConsumer>
                   { (value, reloadPoints) => {
                      return (
-                      <button onClick={(event)=>value.reloadPoints(event)} className="customButton btn align-items-center" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                      <button onClick={(event)=>this.props.openCoinsModal(event)} className="customButton btn align-items-center" type="button" data-toggle="modal" data-target="#exampleModalCenter">
                       <span className="buttonText"> 
                          <span>{value.userPoints}</span>
                          </span><img src={coin} width="30" height="30" alt="" />

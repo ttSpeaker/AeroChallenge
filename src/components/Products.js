@@ -12,7 +12,7 @@ export default class Products extends Component {
     return (
       <div id="productsSection">
         <ProductsMenu ></ProductsMenu>
-        <ProductsList ></ProductsList>
+        <ProductsList openCoinsModal={this.props.openCoinsModal}></ProductsList>
         <ProductsBotMenu></ProductsBotMenu>
     </div> 
     ); 

@@ -16,12 +16,11 @@ export default class ProductsList extends Component {
           } else {
             return (
             <div >
-            <ul className="d-flex justify-content-between flex-wrap"> 
-            {value.items.map(item => (
-            <ProductBox key={item._id} item={item} userPoints={value.userPoints}></ProductBox>
-            ))}
-            </ul>
-            {console.log()}
+              <ul className="d-flex justify-content-between flex-wrap"> 
+              {value.items.slice(value.pageNum*value.itemsPage,value.itemsPage*(value.pageNum+1)).map(item => (
+              <ProductBox key={item._id} item={item} userPoints={value.userPoints} openCoinsModal={this.props.openCoinsModal}></ProductBox>
+              ))}
+              </ul>
             </div>
           );
           }

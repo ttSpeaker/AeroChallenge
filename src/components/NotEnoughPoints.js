@@ -8,7 +8,7 @@ export default class NotEnoughPoints extends Component {
     return (
         <ContextConsumer>
             {value=>
-            <button onClick={(e)=>value.reloadPoints(e)} className="btn align-items-center needButton" type="button">
+            <button onClick={(event)=>this.props.openCoinsModal(event)} className="btn align-items-center needButton" type="button">
             <span className="needText"> 
             <span>You need {(this.props.cost-this.props.userPoints)}</span>
             </span><img src={coin} width="20" height="" alt="" />

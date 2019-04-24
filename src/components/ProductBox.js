@@ -12,7 +12,7 @@ export default class ProductBox extends Component {
                 <div className="card" >
                 <div className="imgContainer">
                     {this.props.item.cost > this.props.userPoints ? 
-                         <NotEnoughPoints cost={this.props.item.cost} userPoints={this.props.userPoints}>
+                         <NotEnoughPoints cost={this.props.item.cost} userPoints={this.props.userPoints} openCoinsModal={this.props.openCoinsModal}> 
                          </NotEnoughPoints>:
                          <img src={blueBuy} width="42" height="42" alt="" className="buyImg"/>}
                     <img className="card-img-top" src={this.props.item.img.url} alt="Card image cap"/>
