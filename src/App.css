@@ -11,7 +11,7 @@
 #root {
   background: var(--bodyBackground);
 }
-body {
+html {
   font-family: SourceSansPro-Regular;
   background-color: var(--bodyBackground);
 }
@@ -59,10 +59,7 @@ body {
   padding-bottom: 24px;
 }
 .pagingText {
-  padding-right: 25px;
-  border-right:var(--lightBars);
-  border-right-style: solid;
-  border-right-width: 1px;  
+  margin-right: 25px; 
   height: 49px;
 }
 #filtersButtons {
@@ -78,8 +75,17 @@ body {
   margin-left: 24px;
   border-radius: 20px;
 }
+#bsOverride .nav-text {
+  border-left:var(--lightBars);
+  border-left-style: solid;
+  border-left-width: 1px; 
+  padding-left: 25px;
+}
 #bsOverride .active {
   background-color: var(--cian);
+}
+#bsOverride .Arrowleft {
+  margin-right: 12px;
 }
 #productsSection {
   margin: 0px 130px;
@@ -88,10 +94,42 @@ body {
   list-style-type: none;
   padding: 0px;
 }
+#bsOverride .botMenu{
+  margin-bottom: 70px;
+}
 #bsOverride .card {
-  margin-top: 24px
+  margin-top: 24px;
+  padding: 12px;
+  height: 276px;
+  width: 276px;
+}
+#bsOverride .card-body {
+  padding: 0px;
+}
+#bsOverride .imgContainer {
+  max-height: 182px;
+  max-width: 252px;
+  border-bottom-color: var(--lightBars);
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  margin-bottom: 20px;
+}
+#bsOverride .category {
+  color: var(--lightFont);
+  margin: 0px;
+  font-size: 16px;
+}
+#bsOverride .name {
+  color: var(--darkFont);
+  margin: 0px;
+  font-size: 18px;
 }
 
+#bsOverride .buyImg {
+  position: absolute;
+  z-index: 1;
+  left: 222px;
+}
 /* .App {
   text-align: center;
 }
