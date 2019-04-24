@@ -3,7 +3,10 @@ import React, { Component } from "react";
 import logo from "../aerolab-logo.svg";
 import coin from "../icons/coin.svg";
 import {ContextConsumer} from "../context.js";
+
 export default class Navbar extends Component {
+ 
+
   render() {
     return (
       <nav className="navbar navbar-expand-lg ">
@@ -22,15 +25,18 @@ export default class Navbar extends Component {
               }</span>
             </li>
             <li>
-              <button className="customButton btn align-items-center" type="button">
-              <span className="buttonText"> 
+              
                 <ContextConsumer>
-                  { value => {
-                     return <span>{value.userPoints}</span>;
-                    }}
+                  { (value, reloadPoints) => {
+                     return (
+                      <button onClick={(event)=>value.reloadPoints(event)} className="customButton btn align-items-center" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                      <span className="buttonText"> 
+                         <span>{value.userPoints}</span>
+                         </span><img src={coin} width="30" height="30" alt="" />
+                       </button>
+                     )}}
                 </ContextConsumer>
-              </span><img src={coin} width="30" height="30" alt="" />
-              </button>
+              
             </li>
           </ul>
         </nav>

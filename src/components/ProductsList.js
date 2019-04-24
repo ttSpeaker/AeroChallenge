@@ -4,6 +4,7 @@ import {ContextConsumer} from "../context.js";
 
 export default class ProductsList extends Component {
 
+  
   render() {
    return (
    <ContextConsumer>
@@ -13,10 +14,17 @@ export default class ProductsList extends Component {
             } else if (!value.isProductsLoaded) {
             return <div>Loading...</div>;
           } else {
-          return (
-            <ProductBox items={value.items}></ProductBox>
+            return (
+            <div >
+            <ul className="d-flex justify-content-between flex-wrap"> 
+            {value.items.map(item => (
+            <ProductBox key={item._id} item={item} userPoints={value.userPoints}></ProductBox>
+            ))}
+            </ul>
+            {console.log()}
+            </div>
           );
-        }
+          }
       }}
     </ContextConsumer>);
  }

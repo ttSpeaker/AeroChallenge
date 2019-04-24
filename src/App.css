@@ -130,6 +130,28 @@ html {
   z-index: 1;
   left: 222px;
 }
+#bsOverride .needButton {
+  position: absolute;
+  z-index: 1;
+  left: 114px;
+  height: 42px;
+  opacity: 0.8;
+  background:var(--darkFont);
+  border-radius: 20px ;
+}
+#bsOverride .needText{
+  color: var(--elementBackground);
+  font-size: 14px;
+  letter-spacing: -0.03px;
+  text-align: right;
+  margin-right: 6px;
+}
+#modal {
+  z-index: 4;
+}
+
+
+
 /* .App {
   text-align: center;
 }

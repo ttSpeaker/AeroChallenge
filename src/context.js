@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import Modal from "./components/pointsModal.js"
 
 const Context = React.createContext();
 
@@ -13,12 +13,43 @@ class ContextProvider extends Component {
          userName: "",
          userPoints: null,
          isProductsLoaded: false,
-         items:[]
+         items:[],
+         orderBy: "_id"
        };
      }
-   
-     componentDidMount(){
-       // Get user data 
+     updateOrder = (newOrder) => {
+        if (newOrder == "lowCost"){
+            var reverse = true;
+            var orderField = "cost"
+        } else if (newOrder == "hiCost"){
+            var reverse = false;
+            var orderField = "cost";
+        } else {
+            var reverse = false;
+            var orderField = "_id"
+        }
+        var sort_by = function(field, reverse){
+            var key = function (x) {return x[field]};
+            return function (a,b) {
+               var A = key(a), B = key(b);
+               return ( (A < B) ? -1 : ((A > B) ? 1 : 0) ) * [-1,1][+!!reverse];                  
+            }
+         }
+         this.setState({
+            orderBy: newOrder,
+            items: this.state.items.sort(sort_by(orderField,reverse))
+         });
+          
+
+     }
+
+    reloadPoints(event) {
+        console.log("click reload pints")
+    }
+
+    componentDidMount(){
+        // Get user data 
+
        fetch("https://aerolab-challenge.now.sh/user/me",{
          method: 'GET', 
          headers: new Headers({
@@ -32,7 +63,8 @@ class ContextProvider extends Component {
                this.setState({
                  isUserLoaded: true,
                  userName: result.name,
-                 userPoints: result.points
+                 userPoints: result.points,
+                 updateOrder: this.updateOrder
                });
              },
              // Note: it's important to handle errors here
@@ -45,7 +77,7 @@ class ContextProvider extends Component {
                });
              }
            )
-   
+
           //get products list
           fetch("https://aerolab-challenge.now.sh/products",{
            method: 'GET', 
@@ -57,7 +89,6 @@ class ContextProvider extends Component {
              .then(res => res.json())
              .then(
                (result) => {
-                 console.log("loaded")
                  this.setState({
                    isProductsLoaded: true,
                    items: result
@@ -79,7 +110,12 @@ class ContextProvider extends Component {
 
   render() {
     return (
-        <Context.Provider value={{...this.state}}> 
+        <Context.Provider value={{
+        ...this.state, 
+        reloadPoints: this.reloadPoints,
+        updateContextItems: this.updateContextItems,
+        updateOrder: this.updateOrder
+        }}> 
             {this.props.children}
         </Context.Provider>  
     );
