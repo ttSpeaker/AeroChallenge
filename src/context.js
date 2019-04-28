@@ -68,9 +68,8 @@ class ContextProvider extends Component {
                this.setState({
                  isUserLoaded: true,
                  userName: result.name,
-                 userPoints: result.points,
-                 updateOrder: this.updateOrder
-               });
+                 userPoints: result.points
+                });
              },
              // Note: it's important to handle errors here
              // instead of a catch() block so that we don't swallow
