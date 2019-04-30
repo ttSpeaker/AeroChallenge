@@ -221,6 +221,24 @@ html {
   cursor: pointer;
 }
 
+#bsOverride .reload-btn {
+  background-color: var(--greyBackground);
+  width:228px;
+  height:42px;
+  border-radius: 100px;
+  font-size: 16px;
+  color: var(--darkFont);
+  letter-spacing:-0.04px;
+  text-align:center;
+  margin-top: 8px;
+ }
+ #bsOverride .active {
+  background-color: var(--cian);
+  color: var(--elementBackground);
+ }
+ #bsOverride .loading {
+   opacity: .5;
+ }
 
 /* .App {
   text-align: center;

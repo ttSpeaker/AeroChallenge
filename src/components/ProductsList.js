@@ -18,7 +18,7 @@ export default class ProductsList extends Component {
             <div >
               <ul className="d-flex justify-content-between flex-wrap"> 
               {value.items.slice(value.pageNum*value.itemsPage,value.itemsPage*(value.pageNum+1)).map(item => (
-              <ProductBox key={item._id} item={item} userPoints={value.userPoints} openCoinsModal={this.props.openCoinsModal}></ProductBox>
+              <ProductBox key={item._id} item={item} userPoints={value.userPoints} openCoinsModal={this.props.openCoinsModal} openRedeemModal={this.props.openRedeemModal}></ProductBox>
               ))}
               </ul>
             </div>

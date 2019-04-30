@@ -16,7 +16,7 @@ export default class ProductBox extends Component {
                         {this.props.item.cost > this.props.userPoints ? 
                             <NotEnoughPoints cost={this.props.item.cost} userPoints={this.props.userPoints} openCoinsModal={this.props.openCoinsModal}> 
                             </NotEnoughPoints>:
-                            <img src={blueBuy} width="42" height="42" alt="" className="buyImg" data-toggle="modal" data-target="#exampleModalCenter"/>}
+                            <img src={blueBuy} width="42" height="42" alt="" className="buyImg" data-toggle="modal" data-target="#"/>}
                         <img className="card-img-top" src={this.props.item.img.url} alt="Card image cap"/>
                     </div>
                     <div className="card-body">
@@ -26,17 +26,17 @@ export default class ProductBox extends Component {
                 </div>
                 {this.props.item.cost < this.props.userPoints ? 
                 <div className="hover-card" >
-                    <img src={whiteBuy} width="42" height="42" alt="" className="buyImg white-buyImg" data-toggle="modal" data-target="#exampleModalCenter"/>
+                    <img src={whiteBuy} width="42" height="42" alt="" className="buyImg white-buyImg" data-toggle="modal" data-target="#"/>
                     <div className="hover-bg-cian" >
                         <span className="hover-text">{this.props.item.cost}  <img src={coin} width="30" height="30" alt=""/></span>
-                        <button className="btn redeem-btn" type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button className="btn redeem-btn" type="button" onClick={(event)=>this.props.openRedeemModal(this.props.item._id)}data-toggle="modal" data-target="#">
                             <span>Redeem now</span>
                         </button>
                     </div>
                 </div> : <div className="hover-card" >
                     <div className="hover-bg-grey" >
                         <span className="hover-text">{this.props.item.cost}  <img src={coin} width="30" height="30" alt=""/></span>
-                        <button className="btn redeem-btn" onClick={(event)=>this.props.openCoinsModal(event)} type="button" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button className="btn redeem-btn" onClick={(event)=>this.props.openCoinsModal(event)} type="button" data-toggle="modal" data-target="#">
                             <span>Get more coins now</span>
                         </button>
                     </div>

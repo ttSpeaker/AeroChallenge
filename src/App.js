@@ -5,16 +5,18 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./components/Navbar";
 import Head from "./components/Head";
 import Products from "./components/Products";
-import {ContextProvider} from "./context.js";
+import {ContextProvider, ContextConsumer} from "./context.js";
 import Modal from "react-bootstrap4-modal";
 import {Coins} from "./components/CoinsModal.js"
+import {Redeem} from "./components/RedeemModal.js"
 
 class App extends Component {
 constructor() {
   super();
   this.state = {
     coinsModal: false,
-    buyModal: false
+    redeemModal: false,
+    currentPurchase: null
   };
 
 }
@@ -28,19 +30,35 @@ closeCoinsModal = () => {
     coinsModal:false
   })
 }
-
+openRedeemModal = (id) => {
+  this.setState({
+    redeemModal:true,
+    currentPurchase: id
+  })
+}
+closeRedeemModal = () => {
+  this.setState({
+    redeemModal:false
+  })
+}
 
   render() {
     return (
       <ContextProvider>
         <React.Fragment>
-          <Coins visible={this.state.coinsModal} closeCoinsModal={this.closeCoinsModal}/>
-          <Navbar openCoinsModal={this.openCoinsModal} />
-          <Head/>
-          {/* <Switch>
-            <Route path="/products" Component={Products} />
-          </Switch>  */}
-          <Products openCoinsModal={this.openCoinsModal}/>
+          <ContextConsumer>
+            {value => {
+            return (
+              <React.Fragment>
+                <Coins visible={this.state.coinsModal} closeCoinsModal={this.closeCoinsModal}/>
+                <Redeem visible={this.state.redeemModal} closeRedeemModal={this.closeRedeemModal} id={this.state.currentPurchase}/>
+                <Navbar openCoinsModal={this.openCoinsModal} reloadPoints={value.reloadPoints}/>
+                <Head/>
+                <Products openCoinsModal={this.openCoinsModal} openRedeemModal={this.openRedeemModal} reloadPoints={value.reloadPoints}/>
+              </React.Fragment>
+            );
+            }}
+          </ContextConsumer>
         </React.Fragment>
       </ContextProvider>
     );
