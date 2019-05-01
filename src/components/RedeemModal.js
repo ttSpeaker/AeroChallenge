@@ -36,14 +36,14 @@ class Redeem extends React.Component {
             <div className="col-12">
                 <span>Your points: {value.userPoints}</span><br></br>
                 {this.props.id? <span>Price points: {(value.items.find(el => el._id == this.props.id)).cost}</span>:""}<br></br>
-                
+
             </div>
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary" onClick={this.props.closeRedeemModal}>
               Close
             </button>
-            <button type="button" className="btn btn-secondary active" onClick={(event)=>{value.redeemPrize(this.props.id,this.handleLoading)}}>
+            <button type="button" className="btn btn-secondary active" onClick={(event)=>{value.redeemPrize(this.props.id,this.handleLoading,this.props.closeRedeemModal)}}>
               Redeem
             </button>
           

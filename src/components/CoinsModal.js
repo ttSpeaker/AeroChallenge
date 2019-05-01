@@ -50,7 +50,7 @@ class Coins extends React.Component {
             <button type="button" className="btn btn-secondary" onClick={this.props.closeCoinsModal}>
               Close
             </button>
-            <button type="button" className="btn btn-secondary active" onClick={(event)=>{value.reloadPoints(this.state.selectedValue,this.handleLoading)}}>
+            <button type="button" className="btn btn-secondary active" onClick={(event)=>{value.reloadPoints(this.state.selectedValue,this.handleLoading,this.props.closeCoinsModal)}}>
               Get Coins
             </button>
           

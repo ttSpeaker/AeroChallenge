@@ -2,8 +2,9 @@ import React, { Component } from "react";
 
 const Context = React.createContext();
 
-//var url = "https://aerolab-challenge.now.sh" //production bug-with POST points
-var url = "https://private-anon-4a4d7ecc5f-aerolabchallenge.apiary-mock.com"
+const url = "https://aerolab-challenge.now.sh" //production bug-with POST points
+// var url = "https://private-anon-4a4d7ecc5f-aerolabchallenge.apiary-mock.com"
+const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzk2NTU0ZWY3YWM0ZjAwNmM2YzE3MGQiLCJpYXQiOjE1NTMzNTYxMTB9.loHp7johkyytXF3JEpKtNw3mDE_uKROKy8kRpqQX3OI"
 
 class ContextProvider extends Component {
     constructor(props) {
@@ -50,76 +51,124 @@ class ContextProvider extends Component {
           
 
      }
-    reloadPoints = (points,loadingCallback) =>  {
+
+     reloadPoints = (points,loadingCallback,closeCallback) =>  {
       loadingCallback(true);
-      fetch(url + "/user/points",{
-        method: 'POST', 
-        headers: new Headers({
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzk2NTU0ZWY3YWM0ZjAwNmM2YzE3MGQiLCJpYXQiOjE1NTMzNTYxMTB9.loHp7johkyytXF3JEpKtNw3mDE_uKROKy8kRpqQX3OI', 
-          'Content-Type': 'application/jsonp',
-          'Accept': 'application/json'
-        }),
-        body: {
-         "amount": 1000
-        }
+      var request = new XMLHttpRequest();
+
+      request.open('POST', url + '/user/points');
+
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.setRequestHeader('Accept', 'application/json');
+      request.setRequestHeader('Authorization', 'Bearer ' + token);
+
+      var body = {
+        'amount': points
+      };
+      request.onload = () => {
+        loadingCallback(false);
+        closeCallback();
+        this.setState({
+          userPoints: JSON.parse(request.response)["New Points"]
         })
-          .then(res => res.json())
-          .then(
-            (result) => {
-              console.log(result);
-              var nPoints = this.state.userPoints + points
-              this.setState({
-                userPoints: nPoints
-               });
-               loadingCallback(false);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                error
+      }
+      request.send(JSON.stringify(body));
+
+     }
+    // reloadPoints = (points,loadingCallback) =>  {
+    //   loadingCallback(true);
+    //   fetch(url + "/user/points",{
+    //     method: 'POST', 
+    //     headers: new Headers({
+    //       'Authorization': 'Bearer '+ token, 
+    //       'Content-Type': 'application/jsonp',
+    //       'Accept': 'application/json'
+    //     }),
+    //     body: {
+    //      "amount": points
+    //     }
+    //     })
+    //       .then(res => res.json())
+    //       .then(
+    //         (result) => {
+    //           console.log(result);
+    //           this.setState({
+    //             userPoints: result["new Points"]
+    //            });
+    //            loadingCallback(false);
+    //         },
+    //         // Note: it's important to handle errors here
+    //         // instead of a catch() block so that we don't swallow
+    //         // exceptions from actual bugs in components.
+    //         (error) => {
+    //           this.setState({
+    //             error
+    //           });
+    //         }
+    //       )
+    // }
+  
+  redeemPrize = (id, loadingCallback,closeCallback) => {
+    loadingCallback(true);
+    var request = new XMLHttpRequest();
+
+    request.open('POST', url + '/redeem');
+
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('Accept', 'application/json');
+    request.setRequestHeader('Authorization', 'Bearer ' + token);
+
+    var body = {
+      'productId': id
+    };
+    request.onload = () => {
+      this.getUserData();
+      loadingCallback(false);
+      closeCallback();
+    }
+    request.send(JSON.stringify(body));
+
+  }
+
+  getUserData = () => {
+    fetch(url + "/user/me",{
+      method: 'GET', 
+      headers: new Headers({
+        'Authorization': 'Bearer ' + token, 
+        'Content-Type': 'application/json'
+      })
+      })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            this.setState({
+              isUserLoaded: true,
+              userName: result.name,
+              userPoints: result.points
               });
-            }
-          )
+          }).catch(
+          // Note: it's important to handle errors here
+          // instead of a catch() block so that we don't swallow
+          // exceptions from actual bugs in components.
+          (error) => {
+            this.setState({
+              isUserLoaded: true,
+              error
+            });
+          }
+        )
     }
 
-    redeemPrize = (id,loadingCallback) => {
-      loadingCallback(true);
-      fetch(url + "/redeem",{
-        method: 'POST', 
-        headers: new Headers({
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzk2NTU0ZWY3YWM0ZjAwNmM2YzE3MGQiLCJpYXQiOjE1NTMzNTYxMTB9.loHp7johkyytXF3JEpKtNw3mDE_uKROKy8kRpqQX3OI', 
-          'Content-Type': 'application/jsonp',
-          'Accept': 'application/json'
-        }),
-        body: {
-         "productId": id
-        }
-        })
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.getUserData();
-              console.log(result);
-              loadingCallback(false);
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                error
-              });
-            }
-          )
-    }
+    componentDidMount(){
+      // Get user data 
+      this.getUserData();
+      
 
-    getUserData = () => {
-      fetch(url + "/user/me",{
+      //get products list
+      fetch(url + "/products",{
         method: 'GET', 
         headers: new Headers({
-          'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzk2NTU0ZWY3YWM0ZjAwNmM2YzE3MGQiLCJpYXQiOjE1NTMzNTYxMTB9.loHp7johkyytXF3JEpKtNw3mDE_uKROKy8kRpqQX3OI', 
+          'Authorization': 'Bearer ' + token, 
           'Content-Type': 'application/json'
         })
         })
@@ -127,56 +176,21 @@ class ContextProvider extends Component {
           .then(
             (result) => {
               this.setState({
-                isUserLoaded: true,
-                userName: result.name,
-                userPoints: result.points
-               });
-            },
+                isProductsLoaded: true,
+                items: result
+                });
+            }).catch(
             // Note: it's important to handle errors here
             // instead of a catch() block so that we don't swallow
             // exceptions from actual bugs in components.
             (error) => {
               this.setState({
-                isUserLoaded: true,
+                isProductsLoaded: true,
                 error
               });
             }
           )
-
-    }
-    componentDidMount(){
-        // Get user data 
-        this.getUserData();
-       
-
-          //get products list
-          fetch(url + "/products",{
-           method: 'GET', 
-           headers: new Headers({
-             'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Yzk2NTU0ZWY3YWM0ZjAwNmM2YzE3MGQiLCJpYXQiOjE1NTMzNTYxMTB9.loHp7johkyytXF3JEpKtNw3mDE_uKROKy8kRpqQX3OI', 
-             'Content-Type': 'application/json'
-           })
-           })
-             .then(res => res.json())
-             .then(
-               (result) => {
-                 this.setState({
-                   isProductsLoaded: true,
-                   items: result
-                   });
-               },
-               // Note: it's important to handle errors here
-               // instead of a catch() block so that we don't swallow
-               // exceptions from actual bugs in components.
-               (error) => {
-                 this.setState({
-                   isProductsLoaded: true,
-                   error
-                 });
-               }
-             )
      }
-
 
 
   render() {
